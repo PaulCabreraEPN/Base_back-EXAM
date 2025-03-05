@@ -159,17 +159,17 @@ const buscar = async (req, res) => {
     try {
         const {cedula} = req.params;
 
-        const verifystudent = await conferencista.findOne({cedula});
+        const verifyconf = await conferencista.findOne({cedula});
 
-        if (!verifystudent) {
+        if (!verifyconf) {
             return res.status(404).json({
-                msg: `No se encontró el estudiante con la cedula ${cedula}`
+                msg: `No se encontró el conferencista con la cedula ${cedula}`
             });
         }
 
         return res.status(200).json({
-            msg: "Estudiante encontrado con éxito",
-            data: verifystudent,
+            msg: "Conferencista encontrado con éxito",
+            data: verifyconf,
         })
 
     } catch (error) {
@@ -181,10 +181,10 @@ const buscar = async (req, res) => {
 
 const actualizar = async (req, res) => {
     const {id} = req.params;
-    const {nombre, apellido, cedula, fecha_nacimiento, direccion, telefono, email} = req.body;
+    const {nombre, apellido, cedula, genero, fecha_nacimiento, ciudad, direccion, telefono, email, empresa} = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({
-        msg: `Por favor, ingrese un ID válido para eliminar.`
+        msg: `Por favor, ingrese un ID válido para actualizar.`
     });
 
     // Función para verificar si hay campos vacíos
@@ -192,7 +192,7 @@ const actualizar = async (req, res) => {
         fields.some(field => !field || (typeof field === 'string' && field.trim() === ""));
 
     // Validar campos obligatorios
-    if (areFieldsEmpty(nombre, apellido, cedula, fecha_nacimiento, direccion, telefono, email)) {
+    if (areFieldsEmpty(nombre, apellido, cedula, genero, fecha_nacimiento, ciudad, direccion, telefono, email, empresa)) {
         return res.status(400).json({
             error: "Datos vacíos. Por favor, llene todos los campos."
         });
@@ -206,22 +206,24 @@ const actualizar = async (req, res) => {
 
     try {
         const newdata = {
-            nombre,
-            apellido,
-            cedula,
-            fecha_nacimiento,
-            direccion,
-            telefono,
-            email
+            nombre, 
+            apellido, 
+            cedula, 
+            genero, 
+            fecha_nacimiento, 
+            ciudad, direccion, 
+            telefono, 
+            email, 
+            empresa
         }
-        const verifystudent = await conferencista.findByIdAndUpdate(id, newdata, {new: true})
-        if (!verifystudent) {
+        const verifyconf = await conferencista.findByIdAndUpdate(id, newdata, {new: true})
+        if (!verifyconf) {
             return res.status(404).json({
-                msg: `No se encontró el estudiante con el id ${id}`
+                msg: `No se encontró el conferencista con el id ${id}`
             });
         }
         return res.status(200).json({
-            msg: "Estudiante actualizado correctamente",
+            msg: "Conferencista actualizado correctamente",
             data: newdata, 
         });
 
@@ -241,12 +243,12 @@ const eliminar = async (req, res) => {
         const verifystudent = await conferencista.findByIdAndDelete(id);
         if(!verifystudent){
             return res.status(404).json({
-                msg: `No se encontró el estudiante con el id ${id}`
+                msg: `No se encontró el conferencista con el id ${id}`
             });
         }
 
         return res.status(200).json({
-            msg: "Estudiante eliminado correctamente",
+            msg: "Conferencista eliminado correctamente",
             data: verifystudent
         });
     } catch (error) {
