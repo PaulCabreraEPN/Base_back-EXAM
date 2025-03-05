@@ -1,0 +1,10 @@
+//Usuarios 
+
+"email": "sbastiancruz14@gmail.com",
+"password": "mypass2025"
+
+"email": "marcelacort01@gmail.com",
+"password": "secret1998"
+
+"email": "gerra_dar05@gmail.com",
+"password": "verificador22"
