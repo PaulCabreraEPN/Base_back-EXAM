@@ -5,11 +5,11 @@ const auditorio = new Schema({
     nombre:{
         type: String,
         minlength: 2,
-        maxlength: 20,
+        maxlength: 50,
         require: true,
         trim: true
     },
-    cedula:{
+    codigo:{
         type: String,
         maxlength: 10,
         require: true,
@@ -27,7 +27,6 @@ const auditorio = new Schema({
     },
     descripcion:{
         type: String,
-        maxlength: 100,
         require: true,
         trim: true
     }

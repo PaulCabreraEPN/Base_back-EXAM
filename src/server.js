@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import usuario_rutas from './routers/usuario_routes.js';
 import conferencistas_routes from './routers/routes1/conferencistas_routes.js';
-import materias_rutas from './routers/routes1/materias_routes.js';
+import auditorios_rutas from './routers/routes1/auditorios_routes.js';
 import matriculas_rutas from './routers/routes1/matriculas_routes.js';
 ;
 // Inicializaciones
@@ -29,7 +29,7 @@ app.get('/',(req,res)=>{
 
 app.use('/api', usuario_rutas);
 app.use('/api', conferencistas_routes);
-app.use('/api', materias_rutas);
+app.use('/api', auditorios_rutas);
 app.use('/api', matriculas_rutas);
 
 //Rutas no encontradas
